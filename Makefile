@@ -114,13 +114,12 @@ clean:
 
 # Build image for a local testnet
 localnet-build:
-	docker build --no-cache --tag otto/node -f Dockerfile .
+	docker build --no-cache --tag octopus-appchains/otto -f Dockerfile .
 
 # Start a 4-node testnet locally
-localnet-start: localnet-clean build-linux localnet-build
-	@if ! [ -f build/node0/$(OTTO_BINARY)/config/genesis.json ]; then docker run --rm -v $(CURDIR)/build:/otto:Z otto/node "./ottod testnet init-files --v 3 -o /otto --keyring-backend=test --starting-ip-address 192.167.10.2"; fi; \
-  scripts/setup_genesis.sh; \
-  docker compose up -d;
+localnet-start:
+	@bash $(CURDIR)/tests/init_localnet.sh
+	docker compose up -d;
 
 # Stop testnet
 localnet-stop:

@@ -1,0 +1,19 @@
+[
+    {
+        "name": "Otto",
+        "description": "The native EVM, governance and staking token of the Otto",
+        "denom_units": [
+            {
+                "denom": "aotto",
+                "exponent": 0
+            },
+            {
+                "denom": "otto",
+                "exponent": 18
+            }
+        ],
+        "base": "aotto",
+        "display": "otto",
+        "symbol": "OTTO"
+    }
+]

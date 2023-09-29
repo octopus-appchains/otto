@@ -1,58 +1,84 @@
 version: '3'
 
 services:
-  node0:
-    container_name: ottonode0
-    image: "otto/node"
+  validator01:
+    container_name: validator01
+    image: "octopus-appchains/otto"
     ports:
-      - "26666-26667:26656-26657"
-      - "18545-18546:8545-8546"
+      - "26616-26617:26656-26657"
     volumes:
-      - ./build/node0/ottod:/otto:Z
+      - ./build/validatornode01:/data:Z
     command:
-      - /ottod start --json-rpc.address="0.0.0.0:8545" --json-rpc.ws-address="0.0.0.0:8546" --json-rpc.api="eth,web3,net,txpool" --home /otto
+      - ottod start --home /data
     networks:
       localnet:
         ipv4_address: 192.167.10.2
 
-  node1:
-    container_name: ottonode1
-    image: "otto/node"
+  validator02:
+    container_name: validator02
+    image: "octopus-appchains/otto"
     ports:
-      - "26659-26660:26656-26657"
+      - "26626-26627:26656-26657"
     volumes:
-      - ./build/node1/ottod:/otto:Z
+      - ./build/validatornode02:/data:Z
     command:
-      - /ottod start --home /otto
+      - ottod start --home /data
     networks:
       localnet:
         ipv4_address: 192.167.10.3
 
-  node2:
-    container_name: ottonode2
-    image: "otto/node"
+  validator03:
+    container_name: validator03
+    image: "octopus-appchains/otto"
     ports:
-      - "26661-26662:26656-26657"
+      - "26636-26637:26656-26657"
     volumes:
-      - ./build/node2/ottod:/otto:Z
+      - ./build/validatornode03:/data:Z
     command:
-      - /ottod start --home /otto
+      - ottod start --home /data 
     networks:
       localnet:
         ipv4_address: 192.167.10.4
 
-  node3:
-    container_name: ottonode3
-    image: "otto/node"
+  validator04:
+    container_name: validator04
+    image: "octopus-appchains/otto"
     ports:
-      - "26663-26664:26656-26657"
+      - "26646-26647:26656-26657"
     volumes:
-      - ./build/node3/ottod:/otto:Z
+      - ./build/validatornode04:/data:Z
     command:
-      - /ottod start --home /otto
+      - ottod start --home /data
     networks:
       localnet:
         ipv4_address: 192.167.10.5
+    
+  fullnode01:
+    container_name: fullnode01
+    image: "octopus-appchains/otto"
+    ports:
+      - "26656-26657:26656-26657"
+      - "8545-8546:8545-8546"
+    volumes:
+      - ./build/fullnode01:/data:Z
+    command:
+      - ottod start --home /data --json-rpc.address="0.0.0.0:8545" --json-rpc.ws-address="0.0.0.0:8546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true
+    networks:
+      localnet:
+        ipv4_address: 192.167.10.6
+
+  fullnode02:
+    container_name: fullnode02
+    image: "octopus-appchains/otto"
+    ports:
+      - "26666-26667:26656-26657"
+    volumes:
+      - ./build/fullnode02:/data:Z
+    command:
+      - ottod start --home /data --json-rpc.address="0.0.0.0:8545" --json-rpc.ws-address="0.0.0.0:8546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true
+    networks:
+      localnet:
+        ipv4_address: 192.167.10.7
 
 networks:
   localnet:

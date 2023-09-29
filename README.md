@@ -11,12 +11,18 @@ make build
 ### Run local single node
 
 ```bash
-./scripts/local_node.sh
+./tests/launch_devnet.sh
 ```
 
 ### Run local multi-node
 
-To build start a 4 node testnet using docker, run:
+To build the docker image, run:
+
+```bash
+make build-image
+```
+
+TO start a testnet with 4 nodes using docker, run:
 
 ```bash
 make localnet-start
@@ -33,7 +39,7 @@ make localnet-show-logstream
 You can also watch logs via Docker with the `-f` flag, for example:
 
 ```bash
-docker logs -f ottonode0
+docker logs -f validator01
 ```
 
 ### Interact with the local multi-node network
