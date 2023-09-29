@@ -5,7 +5,7 @@ CHAIN_BIN=ottod
 CHAIN_ID=otto_9100-1
 # set denom
 DENOM="aotto"
-MONIKER=valiator
+MONIKER=validator
 KEY=$MONIKER
 TEST_DIR=$(pwd)/tests
 FAUCET_KEY=faucet
