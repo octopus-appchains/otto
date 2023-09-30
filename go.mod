@@ -1,4 +1,4 @@
-module github.com/octopus-network/oyster/v2
+module github.com/octopus-appchains/otto
 
 go 1.20
 

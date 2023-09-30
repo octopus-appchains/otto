@@ -249,4 +249,4 @@ On the import screen, select Private Key and paste in the private key above.
 
 ## Conclusion
 
-You can view the complete [tutorial on GitHub](https://github.com/octopus-network/oyster/tree/ottochain/tutorial).
+You can view the complete [tutorial on GitHub](https://github.com/octopus-appchains/otto/tree/ocb-ottochain/tutorial).

@@ -43,6 +43,7 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
 	evmosclient "github.com/evmos/evmos/v14/client"
+	"github.com/evmos/evmos/v14/client/block"
 	"github.com/evmos/evmos/v14/client/debug"
 	"github.com/evmos/evmos/v14/encoding"
 	"github.com/evmos/evmos/v14/ethereum/eip712"
@@ -50,9 +51,8 @@ import (
 	servercfg "github.com/evmos/evmos/v14/server/config"
 	srvflags "github.com/evmos/evmos/v14/server/flags"
 
-	cmdcfg "github.com/octopus-network/oyster/v2/cmd/config"
-
-	"github.com/octopus-network/oyster/v2/app"
+	"github.com/octopus-appchains/otto/app"
+	cmdcfg "github.com/octopus-appchains/otto/cmd/config"
 
 	evmoskr "github.com/evmos/evmos/v14/crypto/keyring"
 )
@@ -84,10 +84,12 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
 			cmd.SetErr(cmd.ErrOrStderr())
+
 			initClientCtx, err := client.ReadPersistentCommandFlags(initClientCtx, cmd.Flags())
 			if err != nil {
 				return err
 			}
+
 			initClientCtx, err = config.ReadFromClientConfig(initClientCtx)
 			if err != nil {
 				return err
@@ -124,6 +126,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		config.Cmd(),
 		pruning.PruningCmd(a.newApp),
 		snapshot.Cmd(a.newApp),
+		block.Cmd(),
 	)
 
 	evmosserver.AddCommands(
@@ -155,7 +158,6 @@ func addModuleInitFlags(startCmd *cobra.Command) {
 	crisis.AddModuleInitFlags(startCmd)
 }
 
-// queryCommand returns the sub-command to send queries to the app
 func queryCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:                        "query",
@@ -180,7 +182,6 @@ func queryCommand() *cobra.Command {
 	return cmd
 }
 
-// txCommand returns the sub-command to send transactions to the app
 func txCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:                        "tx",
@@ -232,7 +233,7 @@ type appCreator struct {
 	encCfg params.EncodingConfig
 }
 
-// newApp creates a new Cosmos SDK app
+// newApp is an appCreator
 func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, appOpts servertypes.AppOptions) servertypes.Application {
 	var cache sdk.MultiStorePersistentCache
 
@@ -252,7 +253,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 
 	home := cast.ToString(appOpts.Get(flags.FlagHome))
 	snapshotDir := filepath.Join(home, "data", "snapshots")
-	snapshotDB, err := dbm.NewDB("metadata", dbm.GoLevelDBBackend, snapshotDir)
+	snapshotDB, err := dbm.NewDB("metadata", sdkserver.GetAppDBBackend(appOpts), snapshotDir)
 	if err != nil {
 		panic(err)
 	}
@@ -284,7 +285,7 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		chainID = conf.ChainID
 	}
 
-	return app.New(
+	return app.NewApp(
 		logger, db, traceStore, true, skipUpgradeHeights,
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(sdkserver.FlagInvCheckPeriod)),
@@ -292,9 +293,9 @@ func (a appCreator) newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, a
 		appOpts,
 		baseapp.SetPruning(pruningOpts),
 		baseapp.SetMinGasPrices(cast.ToString(appOpts.Get(sdkserver.FlagMinGasPrices))),
-		baseapp.SetMinRetainBlocks(cast.ToUint64(appOpts.Get(sdkserver.FlagMinRetainBlocks))),
 		baseapp.SetHaltHeight(cast.ToUint64(appOpts.Get(sdkserver.FlagHaltHeight))),
 		baseapp.SetHaltTime(cast.ToUint64(appOpts.Get(sdkserver.FlagHaltTime))),
+		baseapp.SetMinRetainBlocks(cast.ToUint64(appOpts.Get(sdkserver.FlagMinRetainBlocks))),
 		baseapp.SetInterBlockCache(cache),
 		baseapp.SetTrace(cast.ToBool(appOpts.Get(sdkserver.FlagTrace))),
 		baseapp.SetIndexEvents(cast.ToStringSlice(appOpts.Get(sdkserver.FlagIndexEvents))),
@@ -317,20 +318,23 @@ func (a appCreator) appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
+	var ottoApp *app.App
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
 
-	app := app.New(logger, db, traceStore, height == -1, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
-
 	if height != -1 {
-		if err := app.LoadHeight(height); err != nil {
+		ottoApp = app.NewApp(logger, db, traceStore, false, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
+
+		if err := ottoApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
+	} else {
+		ottoApp = app.NewApp(logger, db, traceStore, true, map[int64]bool{}, "", uint(1), a.encCfg, appOpts)
 	}
 
-	return app.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
+	return ottoApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
 }
 
 // initTendermintConfig helps to override default Tendermint Config values.
