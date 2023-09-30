@@ -73,7 +73,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":[
 * Genesis File: [genesis.json](https://raw.githubusercontent.com/octopus-network/oyster/ocb-otto/genesis.json)
 * Persistent Peers:
     ```json
-    persistent_peers = "58ca8716508f50d51d2918c9b70758c1c25bb498@34.81.140.131:26656, 834bbc8f2738313679c414df63136eb3197048a7@35.201.135.223:26656"
+    persistent_peers = "58ca8716508f50d51d2918c9b70758c1c25bb498@35.201.135.223:26656,834bbc8f2738313679c414df63136eb3197048a7@35.201.146.108:26656"
     ```
 
 ## Tutorial
