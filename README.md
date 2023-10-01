@@ -70,7 +70,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":[
 * JSON RPC: `https://gateway.testnet.octopus.network/rpc/ottochain/m4k5urt9h33dpbhgsp4lqxemo6naeihz`
 * [Explorer](http://34.69.4.240:4000/)
 * [Faucet](http://34.69.4.240:8088/)
-* Genesis File: [genesis.json](https://raw.githubusercontent.com/octopus-network/oyster/ocb-otto/genesis.json)
+* Genesis File: [genesis.json](https://raw.githubusercontent.com/octopus-appchains/otto/ocb-ottochain/tests/testnet_genesis.json)
 * Persistent Peers:
     ```json
     persistent_peers = "58ca8716508f50d51d2918c9b70758c1c25bb498@35.201.135.223:26656,834bbc8f2738313679c414df63136eb3197048a7@35.201.146.108:26656"
