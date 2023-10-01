@@ -67,7 +67,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getFilterChanges","params":[
 * Chain Name: OttoChain
 * Cosmos Chain ID: `otto_9100-1`
 * EVM Chain ID (EIP155 Number): `9100`
-* JSON RPC: `https://gateway.testnet.octopus.network/ottochain/m4k5urt9h33dpbhgsp4lqxemo6naeihz`
+* JSON RPC: `https://gateway.testnet.octopus.network/rpc/ottochain/m4k5urt9h33dpbhgsp4lqxemo6naeihz`
 * [Explorer](http://34.69.4.240:4000/)
 * [Faucet](http://34.69.4.240:8088/)
 * Genesis File: [genesis.json](https://raw.githubusercontent.com/octopus-network/oyster/ocb-otto/genesis.json)
