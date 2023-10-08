@@ -3,17 +3,6 @@
 KEYS[0]="dev0"
 KEYS[1]="dev1"
 KEYS[2]="dev2"
-# regexChainID         = `[a-z]{1,}`
-# regexEIP155Separator = `_{1}`
-# regexEIP155          = `[1-9][0-9]*`
-# regexEpochSeparator  = `-{1}`
-# regexEpoch           = `[1-9][0-9]*`
-# evmosChainID         = regexp.MustCompile(fmt.Sprintf(`^(%s)%s(%s)%s(%s)$`,
-#       regexChainID,
-#       regexEIP155Separator,
-#       regexEIP155,
-#       regexEpochSeparator,
-#       regexEpoch))
 CHAINID="otto_9100-1"
 MONIKER="localtestnet"
 # Remember to change to other types of keyring like 'file' in-case exposing to outside world,
@@ -69,7 +58,7 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 		ottod keys add "$KEY" --keyring-backend $KEYRING --algo $KEYALGO --home "$HOMEDIR"
 	done
 
-	# Set moniker and chain-id (Moniker can be anything, chain-id must match an `evmosChainID`)
+	# Set moniker and chain-id for Evmos (Moniker can be anything, chain-id must be an integer)
 	ottod init $MONIKER -o --chain-id $CHAINID --home "$HOMEDIR"
 
 	# Change parameter token denominations to aotto
@@ -150,4 +139,4 @@ if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
 fi
 
 # Start the node (remove the --pruning=nothing flag if historical queries are not needed)
-ottod start --metrics "$TRACE" --log_level $LOGLEVEL --minimum-gas-prices=0.0001aotto --json-rpc.address="0.0.0.0:18545" --json-rpc.ws-address="0.0.0.0:18546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true --home "$HOMEDIR"
+ottod start --metrics "$TRACE" --log_level $LOGLEVEL --minimum-gas-prices=0.0001aotto --json-rpc.address="0.0.0.0:18545" --json-rpc.ws-address="0.0.0.0:18546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true --home "$HOMEDIR" --chain-id "$CHAINID"
