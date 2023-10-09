@@ -12,8 +12,13 @@ import (
 	"sort"
 
 	ccvstaking "github.com/cosmos/interchain-security/v3/x/ccv/democracy/staking"
+	claimstypes "github.com/evmos/evmos/v14/x/claims/types"
+	epochstypes "github.com/evmos/evmos/v14/x/epochs/types"
 	"github.com/evmos/evmos/v14/x/erc20"
 	erc20client "github.com/evmos/evmos/v14/x/erc20/client"
+	incentivestypes "github.com/evmos/evmos/v14/x/incentives/types"
+	inflationtypes "github.com/evmos/evmos/v14/x/inflation/types"
+	recoverytypes "github.com/evmos/evmos/v14/x/recovery/types"
 
 	v2 "github.com/octopus-network/oyster/v2/app/upgrades/v2"
 
@@ -1010,16 +1015,11 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 
 func (app *App) setupUpgradeHandlers() {
 	// !! ATTENTION !!
-	// sdk47 upgrade handler
-	// !! WHEN UPGRADING TO SDK v0.47 MAKE SURE TO INCLUDE THIS
-	// source: https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/UPGRADING.md#xconsensus
+	// changeover ccv consumer chain upgrade handler
 	app.UpgradeKeeper.SetUpgradeHandler(
 		v2.UpgradeName,
 		v2.CreateUpgradeHandler(
 			app.mm, app.configurator,
-			app.ConsensusParamsKeeper,
-			app.IBCKeeper.ClientKeeper,
-			app.ParamsKeeper,
 			app.appCodec,
 		),
 	)
@@ -1046,8 +1046,14 @@ func (app *App) setupUpgradeHandlers() {
 		// source: https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/UPGRADING.md
 		storeUpgrades = &storetypes.StoreUpgrades{
 			Added: []string{
-				consensusparamtypes.StoreKey,
-				crisistypes.ModuleName,
+				ccvconsumertypes.ModuleName,
+			},
+			Deleted: []string{
+				inflationtypes.ModuleName,
+				incentivestypes.ModuleName,
+				epochstypes.ModuleName,
+				claimstypes.ModuleName,
+				recoverytypes.ModuleName,
 			},
 		}
 		// !! ATTENTION !!
