@@ -22,8 +22,9 @@ WORKDIR /
 RUN apt-get update && apt-get install -y jq
 
 # Copy over binaries from the build-env
-COPY --from=builder /go/bin/ottod /
+COPY --from=builder /go/bin/ottod /usr/local/bin/
 
 EXPOSE 26656 26657 1317 9090 8545 8546
+USER 0
 
 ENTRYPOINT ["/bin/bash", "-c"]

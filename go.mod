@@ -3,12 +3,14 @@ module github.com/octopus-network/oyster/v2
 go 1.20
 
 require (
+	cosmossdk.io/errors v1.0.0
 	cosmossdk.io/simapp v0.0.0-20230608160436-666c345ad23d
 	cosmossdk.io/tools/rosetta v0.2.1
 	github.com/cometbft/cometbft v0.37.2
 	github.com/cometbft/cometbft-db v0.8.0
 	github.com/cosmos/cosmos-sdk v0.47.4
 	github.com/cosmos/ibc-go/v7 v7.3.0
+	github.com/cosmos/interchain-security/v3 v3.0.0
 	github.com/ethereum/go-ethereum v1.11.5
 	github.com/evmos/evmos/v14 v14.0.0-rc3
 	github.com/spf13/cast v1.5.1
@@ -25,7 +27,6 @@ require (
 	cosmossdk.io/api v0.3.1 // indirect
 	cosmossdk.io/core v0.6.1 // indirect
 	cosmossdk.io/depinject v1.0.0-alpha.3 // indirect
-	cosmossdk.io/errors v1.0.0 // indirect
 	cosmossdk.io/log v1.1.1-0.20230704160919-88f2c830b0ca // indirect
 	cosmossdk.io/math v1.1.2 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
@@ -206,6 +207,8 @@ replace (
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
+	// use interchain security to integrate with ccv module
+	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20230929031156-9cbdd569535c
 	// use Evmos geth fork
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// use Evmos fork to remove the limit of chainID
