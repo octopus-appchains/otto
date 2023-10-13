@@ -97,19 +97,37 @@ const (
     "allow_update_after_misbehaviour": false
   },
   "provider_consensus_state": {
-    "timestamp": "2023-10-09T04:34:05.698895300Z",
+    "timestamp": "2023-10-13T01:55:04.299344144Z",
     "root": {
-      "hash": "qxwho4ty35HaiX3CVkQtESVoU8xWW6yR51BuCaiKuu8="
+      "hash": "AmjSjjCwwycdGU7J+6IZKcmSdmyz1m730jez6+xV/P8="
     },
-    "next_validators_hash": "8B9A10D2F42D3650DB5B427460B8688B114254BA75570EF13681C45AE41806FA"
+    "next_validators_hash": "E67A5BABE54E98BF6CCF9E992188049B4F3968F0DEA33058CE69B69349F22A8E"
   },
   "maturing_packets": [],
   "initial_val_set": [
     {
       "pub_key": {
-        "ed25519": "6TtgljW2k9j+yFfIEmAfZG+Apfq2E5lG4yxqZkXbYkM="
+        "ed25519": "2CKdA3Sbl1hh6+Exdqy7LfspfGcgUtNhV1VwUAZcy7c="
       },
-      "power": "99"
+      "power": "10000"
+    },
+    {
+      "pub_key": {
+        "ed25519": "s6mgS6YztAJ0V0GyV0Rc6g4E3Y/QLFI4wZ3c5LEDaks="
+      },
+      "power": "10000"
+    },
+    {
+      "pub_key": {
+        "ed25519": "xaTzPWfA7PS06PDJw/p6p/QWSBqYH71PeeUqlPSv0QM="
+      },
+      "power": "10000"
+    },
+    {
+      "pub_key": {
+        "ed25519": "2JOX9X/hXjMVN1KfOPxZzRruKKb45kZW1nICBXHaXBI="
+      },
+      "power": "10000"
     }
   ],
   "height_to_valset_update_id": [],
