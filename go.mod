@@ -1,6 +1,8 @@
 module github.com/octopus-network/oyster/v2
 
-go 1.20
+go 1.21
+
+toolchain go1.21.0
 
 require (
 	cosmossdk.io/errors v1.0.0
@@ -8,6 +10,7 @@ require (
 	cosmossdk.io/tools/rosetta v0.2.1
 	github.com/cometbft/cometbft v0.37.2
 	github.com/cometbft/cometbft-db v0.8.0
+	github.com/cosmos/admin-module v0.0.0-20220204080909-475a98e03f31
 	github.com/cosmos/cosmos-sdk v0.47.4
 	github.com/cosmos/ibc-go/v7 v7.3.0
 	github.com/cosmos/interchain-security/v3 v3.0.0
@@ -205,6 +208,8 @@ require (
 replace (
 	// use cosmos fork of keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
+
+	github.com/cosmos/admin-module => github.com/octopus-network/admin-module v0.0.0-20231101115034-631dec506f55
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 	// use interchain security to integrate with ccv module

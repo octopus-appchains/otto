@@ -857,6 +857,7 @@ github.com/nats-io/nuid v1.0.1/go.mod h1:19wcPz3Ph3q0Jbyiqsd0kePYG7A95tJPxeL+1OS
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/nxadm/tail v1.4.4/go.mod h1:kenIhsEOeOJmVchQTgglprH7qJGnHDVpk1VPCcaMI8A=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
+github.com/octopus-network/admin-module v0.0.0-20231101115034-631dec506f55/go.mod h1:cuGp8iF8wNG8jXnsdoTsb1cuxf7cX+kLCMkfPy2XTZc=
 github.com/octopus-network/evmos/v14 v14.0.2-otto h1:mvxu10AP5UgNrSXzD5G5duxWznyYJL/D1RKm3gmztZ8=
 github.com/octopus-network/evmos/v14 v14.0.2-otto/go.mod h1:BvLt7VaMqFvtO2uFd2Jq+LaBDK658Tala1PREh7fxfk=
 github.com/octopus-network/interchain-security/v3 v3.0.0-20231023063746-affd9bce1123 h1:jbtAacOYqw+Vi5wWCZ208P+/9IxG/+4OFazVVC4VidY=
