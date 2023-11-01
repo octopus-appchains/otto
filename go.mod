@@ -1,4 +1,4 @@
-module github.com/octopus-network/oyster/v2
+module github.com/octopus-appchains/otto
 
 go 1.21
 
@@ -209,7 +209,7 @@ replace (
 	// use cosmos fork of keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 
-	github.com/cosmos/admin-module => github.com/octopus-network/admin-module v0.0.0-20231101115034-631dec506f55
+	github.com/cosmos/admin-module => github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 	// use interchain security to integrate with ccv module

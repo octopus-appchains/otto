@@ -20,7 +20,7 @@ import (
 	inflationtypes "github.com/evmos/evmos/v14/x/inflation/types"
 	recoverytypes "github.com/evmos/evmos/v14/x/recovery/types"
 
-	v2 "github.com/octopus-network/oyster/v2/app/upgrades/v2"
+	v2 "github.com/octopus-appchains/otto/app/upgrades/v2"
 
 	"github.com/spf13/cast"
 

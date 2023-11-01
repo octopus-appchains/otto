@@ -50,9 +50,9 @@ import (
 	servercfg "github.com/evmos/evmos/v14/server/config"
 	srvflags "github.com/evmos/evmos/v14/server/flags"
 
-	cmdcfg "github.com/octopus-network/oyster/v2/cmd/config"
+	cmdcfg "github.com/octopus-appchains/otto/cmd/config"
 
-	"github.com/octopus-network/oyster/v2/app"
+	"github.com/octopus-appchains/otto/app"
 
 	evmoskr "github.com/evmos/evmos/v14/crypto/keyring"
 )
