@@ -2,8 +2,6 @@ module github.com/octopus-appchains/otto
 
 go 1.21
 
-toolchain go1.21.0
-
 require (
 	cosmossdk.io/errors v1.0.0
 	cosmossdk.io/simapp v0.0.0-20230608160436-666c345ad23d
