@@ -12,15 +12,8 @@ import (
 	"sort"
 
 	ccvstaking "github.com/cosmos/interchain-security/v3/x/ccv/democracy/staking"
-	claimstypes "github.com/evmos/evmos/v14/x/claims/types"
-	epochstypes "github.com/evmos/evmos/v14/x/epochs/types"
 	"github.com/evmos/evmos/v14/x/erc20"
 	erc20client "github.com/evmos/evmos/v14/x/erc20/client"
-	incentivestypes "github.com/evmos/evmos/v14/x/incentives/types"
-	inflationtypes "github.com/evmos/evmos/v14/x/inflation/types"
-	recoverytypes "github.com/evmos/evmos/v14/x/recovery/types"
-
-	v2 "github.com/octopus-appchains/otto/app/upgrades/v2"
 
 	"github.com/spf13/cast"
 
@@ -825,7 +818,6 @@ func New(
 	app.setAnteHandler(encodingConfig.TxConfig, maxGasWanted)
 	app.setPostHandler()
 	app.SetEndBlocker(app.EndBlocker)
-	app.setupUpgradeHandlers()
 
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
@@ -1050,56 +1042,4 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
 	paramsKeeper.Subspace(adminmodulemoduletypes.ModuleName)
 	return paramsKeeper
-}
-
-func (app *App) setupUpgradeHandlers() {
-	// !! ATTENTION !!
-	// changeover ccv consumer chain upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v2.UpgradeName,
-		v2.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.appCodec,
-		),
-	)
-	// !! ATTENTION !!
-
-	// When a planned update height is reached, the old binary will panic
-	// writing on disk the height and name of the update that triggered it
-	// This will read that value, and execute the preparations for the upgrade.
-	upgradeInfo, err := app.UpgradeKeeper.ReadUpgradeInfoFromDisk()
-	if err != nil {
-		panic(fmt.Errorf("failed to read upgrade info from disk: %w", err))
-	}
-
-	if app.UpgradeKeeper.IsSkipHeight(upgradeInfo.Height) {
-		return
-	}
-
-	var storeUpgrades *storetypes.StoreUpgrades
-
-	switch upgradeInfo.Name {
-	// !! ATTENTION !!
-	case v2.UpgradeName:
-		// !! WHEN UPGRADING TO SDK v0.47 MAKE SURE TO INCLUDE THIS
-		// source: https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/UPGRADING.md
-		storeUpgrades = &storetypes.StoreUpgrades{
-			Added: []string{
-				ccvconsumertypes.ModuleName,
-			},
-			Deleted: []string{
-				inflationtypes.ModuleName,
-				incentivestypes.ModuleName,
-				epochstypes.ModuleName,
-				claimstypes.ModuleName,
-				recoverytypes.ModuleName,
-			},
-		}
-		// !! ATTENTION !!
-	}
-
-	if storeUpgrades != nil {
-		// configure store loader that checks if version == upgradeHeight and applies store upgrades
-		app.SetStoreLoader(upgradetypes.UpgradeStoreLoader(upgradeInfo.Height, storeUpgrades))
-	}
 }

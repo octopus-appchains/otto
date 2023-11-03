@@ -24,8 +24,11 @@ echo "Create and add $KEY keys"
 cat $VALIDATOR_DIR/seed.txt | $CHAIN_BIN keys add $KEY --home $HOME_DIR --no-backup --keyring-backend test --recover
 
 echo "Prepare genesis..."
+echo "- Set admin"
+jq '.app_state["adminmodule"]["admins"]=["otto187y4hlcggms8kyjhjswqc76353cmuj5swu9ps8"]' $GENESIS > $TEMP_GENESIS && mv $TEMP_GENESIS $GENESIS
+
 echo "- Set gas limit in genesis"
-jq '.consensus_params["block"]["max_gas"]="10000000"' "$GENESIS" > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" "$GENESIS"
+jq '.consensus_params["block"]["max_gas"]="10000000"' $GENESIS > $TEMP_GENESIS && mv $TEMP_GENESIS $GENESIS
 
 echo "- Set CCV Consumer section"
 jq -s '.[0].app_state.ccvconsumer = .[1] | .[0]' $GENESIS $CCV_SECTION > $TEMP_GENESIS && mv $TEMP_GENESIS $GENESIS
