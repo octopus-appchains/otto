@@ -48,7 +48,7 @@ import (
 	evmtypes "github.com/evmos/evmos/v14/x/evm/types"
 	feemarkettypes "github.com/evmos/evmos/v14/x/feemarket/types"
 
-	cmdcfg "github.com/octopus-network/oyster/v2/cmd/config"
+	cmdcfg "github.com/octopus-appchains/otto/cmd/config"
 
 	evmoskr "github.com/evmos/evmos/v14/crypto/keyring"
 	"github.com/evmos/evmos/v14/testutil/network"

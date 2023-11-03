@@ -12,15 +12,8 @@ import (
 	"sort"
 
 	ccvstaking "github.com/cosmos/interchain-security/v3/x/ccv/democracy/staking"
-	claimstypes "github.com/evmos/evmos/v14/x/claims/types"
-	epochstypes "github.com/evmos/evmos/v14/x/epochs/types"
 	"github.com/evmos/evmos/v14/x/erc20"
 	erc20client "github.com/evmos/evmos/v14/x/erc20/client"
-	incentivestypes "github.com/evmos/evmos/v14/x/incentives/types"
-	inflationtypes "github.com/evmos/evmos/v14/x/inflation/types"
-	recoverytypes "github.com/evmos/evmos/v14/x/recovery/types"
-
-	v2 "github.com/octopus-network/oyster/v2/app/upgrades/v2"
 
 	"github.com/spf13/cast"
 
@@ -106,6 +99,7 @@ import (
 	porttypes "github.com/cosmos/ibc-go/v7/modules/core/05-port/types"
 	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
 	ibckeeper "github.com/cosmos/ibc-go/v7/modules/core/keeper"
+	solomachine "github.com/cosmos/ibc-go/v7/modules/light-clients/06-solomachine"
 	ibctm "github.com/cosmos/ibc-go/v7/modules/light-clients/07-tendermint"
 	"github.com/evmos/evmos/v14/x/ibc/transfer"
 
@@ -147,6 +141,11 @@ import (
 	ccvdistr "github.com/cosmos/interchain-security/v3/x/ccv/democracy/distribution"
 	ccvgov "github.com/cosmos/interchain-security/v3/x/ccv/democracy/governance"
 	transferkeeper "github.com/evmos/evmos/v14/x/ibc/transfer/keeper"
+
+	adminmodulemodule "github.com/cosmos/admin-module/x/adminmodule"
+	adminmoduleclient "github.com/cosmos/admin-module/x/adminmodule/client"
+	adminmodulemodulekeeper "github.com/cosmos/admin-module/x/adminmodule/keeper"
+	adminmodulemoduletypes "github.com/cosmos/admin-module/x/adminmodule/types"
 )
 
 func init() {
@@ -198,6 +197,7 @@ var (
 		crisis.AppModuleBasic{},
 		slashing.AppModuleBasic{},
 		ibc.AppModuleBasic{},
+		solomachine.AppModuleBasic{},
 		ibctm.AppModuleBasic{},
 		ica.AppModuleBasic{},
 		authzmodule.AppModuleBasic{},
@@ -212,6 +212,13 @@ var (
 		revenue.AppModuleBasic{},
 		ccvconsumer.AppModuleBasic{},
 		consensus.AppModuleBasic{},
+		adminmodulemodule.NewAppModuleBasic(
+			adminmoduleclient.ParamChangeProposalHandler,
+			adminmoduleclient.SoftwareUpgradeProposalHandler,
+			adminmoduleclient.CancelUpgradeProposalHandler,
+			adminmoduleclient.IBCClientUpdateProposalHandler,
+			adminmoduleclient.IBCClientUpgradeProposalHandler,
+		),
 	)
 
 	// module account permissions
@@ -287,6 +294,8 @@ type App struct {
 	VestingKeeper   vestingkeeper.Keeper
 	RevenueKeeper   revenuekeeper.Keeper
 
+	AdminmoduleKeeper adminmodulemodulekeeper.Keeper
+
 	// mm is the module manager
 	mm *module.Manager
 
@@ -357,6 +366,8 @@ func New(
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
 		erc20types.StoreKey, vestingtypes.StoreKey,
 		revenuetypes.StoreKey,
+
+		adminmodulemoduletypes.StoreKey,
 	)
 
 	// Add the EVM transient store key
@@ -520,8 +531,7 @@ func New(
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(&app.UpgradeKeeper)).
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).
-		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper)).
-		AddRoute(vestingtypes.RouterKey, vesting.NewVestingProposalHandler(&app.VestingKeeper))
+		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper))
 
 	govConfig := govtypes.DefaultConfig()
 	/*
@@ -536,6 +546,23 @@ func New(
 	// Set legacy router for backwards compatibility with gov v1beta1
 	govKeeper.SetLegacyRouter(govRouter)
 	app.GovKeeper = *govKeeper
+
+	// register the proposal types
+	adminRouter := govv1beta1.NewRouter()
+	adminRouter.AddRoute(govtypes.RouterKey, govv1beta1.ProposalHandler).
+		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
+		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(&app.UpgradeKeeper)).
+		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper))
+
+	app.AdminmoduleKeeper = *adminmodulemodulekeeper.NewKeeper(
+		appCodec,
+		keys[adminmodulemoduletypes.StoreKey],
+		keys[adminmodulemoduletypes.MemStoreKey],
+		adminRouter,
+		// this allows any type of proposal to be submitted to the admin module (everything is whitelisted)
+		// projects will implement their functions to define what is allowed for admins.
+		func(govv1beta1.Content) bool { return true },
+	)
 
 	// Evmos Keeper
 	app.VestingKeeper = vestingkeeper.NewKeeper(
@@ -654,6 +681,7 @@ func New(
 		feemarket.NewAppModule(app.FeeMarketKeeper, app.GetSubspace(feemarkettypes.ModuleName)),
 		erc20.NewAppModule(app.Erc20Keeper, app.AccountKeeper, app.GetSubspace(erc20types.ModuleName)),
 		revenue.NewAppModule(app.RevenueKeeper, app.AccountKeeper, app.GetSubspace(revenuetypes.ModuleName)),
+		adminmodulemodule.NewAppModule(appCodec, app.AdminmoduleKeeper),
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -687,6 +715,7 @@ func New(
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
+		adminmodulemoduletypes.ModuleName,
 	)
 
 	// NOTE: fee market module must go last in order to retrieve the block gas used.
@@ -717,6 +746,7 @@ func New(
 		revenuetypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
+		adminmodulemoduletypes.ModuleName,
 	)
 
 	// NOTE: The genutils module must occur after staking so that pools are
@@ -756,6 +786,7 @@ func New(
 		crisistypes.ModuleName,
 		consensusparamtypes.ModuleName,
 		ccvconsumertypes.ModuleName,
+		adminmodulemoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -787,7 +818,6 @@ func New(
 	app.setAnteHandler(encodingConfig.TxConfig, maxGasWanted)
 	app.setPostHandler()
 	app.SetEndBlocker(app.EndBlocker)
-	app.setupUpgradeHandlers()
 
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
@@ -1010,57 +1040,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(revenuetypes.ModuleName)
 	paramsKeeper.Subspace(erc20types.ModuleName)
 	paramsKeeper.Subspace(ccvconsumertypes.ModuleName)
+	paramsKeeper.Subspace(adminmodulemoduletypes.ModuleName)
 	return paramsKeeper
-}
-
-func (app *App) setupUpgradeHandlers() {
-	// !! ATTENTION !!
-	// changeover ccv consumer chain upgrade handler
-	app.UpgradeKeeper.SetUpgradeHandler(
-		v2.UpgradeName,
-		v2.CreateUpgradeHandler(
-			app.mm, app.configurator,
-			app.appCodec,
-		),
-	)
-	// !! ATTENTION !!
-
-	// When a planned update height is reached, the old binary will panic
-	// writing on disk the height and name of the update that triggered it
-	// This will read that value, and execute the preparations for the upgrade.
-	upgradeInfo, err := app.UpgradeKeeper.ReadUpgradeInfoFromDisk()
-	if err != nil {
-		panic(fmt.Errorf("failed to read upgrade info from disk: %w", err))
-	}
-
-	if app.UpgradeKeeper.IsSkipHeight(upgradeInfo.Height) {
-		return
-	}
-
-	var storeUpgrades *storetypes.StoreUpgrades
-
-	switch upgradeInfo.Name {
-	// !! ATTENTION !!
-	case v2.UpgradeName:
-		// !! WHEN UPGRADING TO SDK v0.47 MAKE SURE TO INCLUDE THIS
-		// source: https://github.com/cosmos/cosmos-sdk/blob/release/v0.47.x/UPGRADING.md
-		storeUpgrades = &storetypes.StoreUpgrades{
-			Added: []string{
-				ccvconsumertypes.ModuleName,
-			},
-			Deleted: []string{
-				inflationtypes.ModuleName,
-				incentivestypes.ModuleName,
-				epochstypes.ModuleName,
-				claimstypes.ModuleName,
-				recoverytypes.ModuleName,
-			},
-		}
-		// !! ATTENTION !!
-	}
-
-	if storeUpgrades != nil {
-		// configure store loader that checks if version == upgradeHeight and applies store upgrades
-		app.SetStoreLoader(upgradetypes.UpgradeStoreLoader(upgradeInfo.Height, storeUpgrades))
-	}
 }

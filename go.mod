@@ -1,6 +1,6 @@
-module github.com/octopus-network/oyster/v2
+module github.com/octopus-appchains/otto
 
-go 1.20
+go 1.21
 
 require (
 	cosmossdk.io/errors v1.0.0
@@ -8,6 +8,7 @@ require (
 	cosmossdk.io/tools/rosetta v0.2.1
 	github.com/cometbft/cometbft v0.37.2
 	github.com/cometbft/cometbft-db v0.8.0
+	github.com/cosmos/admin-module v0.0.0-20220204080909-475a98e03f31
 	github.com/cosmos/cosmos-sdk v0.47.4
 	github.com/cosmos/ibc-go/v7 v7.3.0
 	github.com/cosmos/interchain-security/v3 v3.0.0
@@ -205,10 +206,12 @@ require (
 replace (
 	// use cosmos fork of keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
+
+	github.com/cosmos/admin-module => github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 	// use interchain security to integrate with ccv module
-	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20230929031156-9cbdd569535c
+	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.1.0-1024
 	// use Evmos geth fork
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// use Evmos fork to remove the limit of chainID
