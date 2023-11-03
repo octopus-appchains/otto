@@ -211,7 +211,7 @@ replace (
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 	// use interchain security to integrate with ccv module
-	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20231023063746-affd9bce1123
+	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.1.0-1024
 	// use Evmos geth fork
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// use Evmos fork to remove the limit of chainID

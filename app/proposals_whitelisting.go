@@ -12,8 +12,8 @@ func IsProposalWhitelisted(content v1beta1.Content) bool {
 	switch c := content.(type) {
 	case *proposal.ParameterChangeProposal:
 		return isLegacyParamChangeWhitelisted(c.Changes)
-	case *upgradetypes.SoftwareUpgradeProposal,
-		*upgradetypes.CancelSoftwareUpgradeProposal,
+	case *upgradetypes.SoftwareUpgradeProposal, // nolint: staticcheck
+		*upgradetypes.CancelSoftwareUpgradeProposal, // nolint: staticcheck
 		*ibcclienttypes.ClientUpdateProposal,
 		*ibcclienttypes.UpgradeProposal:
 		return true
