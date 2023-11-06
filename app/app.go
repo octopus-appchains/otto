@@ -114,7 +114,6 @@ import (
 	"github.com/evmos/evmos/v14/ethereum/eip712"
 	srvflags "github.com/evmos/evmos/v14/server/flags"
 	evmostypes "github.com/evmos/evmos/v14/types"
-	claimkeeper "github.com/evmos/evmos/v14/x/claims/keeper"
 	erc20keeper "github.com/evmos/evmos/v14/x/erc20/keeper"
 	erc20types "github.com/evmos/evmos/v14/x/erc20/types"
 	"github.com/evmos/evmos/v14/x/evm"
@@ -127,6 +126,8 @@ import (
 	consensusparamkeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
 	consensusparamtypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
 
+	claimskeeper "github.com/evmos/evmos/v14/x/claims/keeper"
+	claimstypes "github.com/evmos/evmos/v14/x/claims/types"
 	"github.com/evmos/evmos/v14/x/revenue/v1"
 	revenuekeeper "github.com/evmos/evmos/v14/x/revenue/v1/keeper"
 	revenuetypes "github.com/evmos/evmos/v14/x/revenue/v1/types"
@@ -365,7 +366,7 @@ func New(
 		// evmos keys
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
 		erc20types.StoreKey, vestingtypes.StoreKey,
-		revenuetypes.StoreKey,
+		revenuetypes.StoreKey, claimstypes.StoreKey,
 
 		adminmodulemoduletypes.StoreKey,
 	)
@@ -570,9 +571,14 @@ func New(
 		app.AccountKeeper, app.BankKeeper, app.DistrKeeper, app.StakingKeeper, govKeeper, // NOTE: app.govKeeper not defined yet, use govKeeper
 	)
 
+	claimsKeeper := claimskeeper.NewKeeper(
+		appCodec, keys[claimstypes.StoreKey], authtypes.NewModuleAddress(govtypes.ModuleName),
+		app.AccountKeeper, app.BankKeeper, app.StakingKeeper, app.DistrKeeper, app.IBCKeeper.ChannelKeeper,
+	)
+
 	app.Erc20Keeper = erc20keeper.NewKeeper(
 		keys[erc20types.StoreKey], appCodec, authtypes.NewModuleAddress(govtypes.ModuleName),
-		app.AccountKeeper, app.BankKeeper, app.EvmKeeper, app.StakingKeeper, claimkeeper.Keeper{},
+		app.AccountKeeper, app.BankKeeper, app.EvmKeeper, app.StakingKeeper, claimsKeeper,
 	)
 
 	app.RevenueKeeper = revenuekeeper.NewKeeper(
