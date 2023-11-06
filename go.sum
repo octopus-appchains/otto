@@ -891,8 +891,8 @@ github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed h1:DM
 github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed/go.mod h1:m1FBRxM9VFKCTC/dkUsZNSGMkXQEUWNYejBbdWlTs60=
 github.com/octopus-network/evmos/v14 v14.0.2-otto h1:mvxu10AP5UgNrSXzD5G5duxWznyYJL/D1RKm3gmztZ8=
 github.com/octopus-network/evmos/v14 v14.0.2-otto/go.mod h1:BvLt7VaMqFvtO2uFd2Jq+LaBDK658Tala1PREh7fxfk=
-github.com/octopus-network/interchain-security/v3 v3.1.0-1024 h1:hMXQ7aHTy11KvmhhKMy/6OfE4r4fzELUQt9c6Yaq+1M=
-github.com/octopus-network/interchain-security/v3 v3.1.0-1024/go.mod h1:Nq4i4iPx1TJqzp4FoLYHPN2mLRtSB/VZubdW99WxLF8=
+github.com/octopus-network/interchain-security/v3 v3.0.0-20231023063746-affd9bce1123 h1:jbtAacOYqw+Vi5wWCZ208P+/9IxG/+4OFazVVC4VidY=
+github.com/octopus-network/interchain-security/v3 v3.0.0-20231023063746-affd9bce1123/go.mod h1:Nq4i4iPx1TJqzp4FoLYHPN2mLRtSB/VZubdW99WxLF8=
 github.com/oklog/oklog v0.3.2/go.mod h1:FCV+B7mhrz4o+ueLpx+KqkyXRGMWOYEvfiXtdGtbWGs=
 github.com/oklog/run v1.0.0/go.mod h1:dlhp/R75TPv97u0XWUtDeV/lRKWPKSdTuV0TZvrmrQA=
 github.com/oklog/ulid v1.3.1/go.mod h1:CirwcVhetQ6Lv90oh/F+FBtV6XMibvdAFo93nm5qn4U=
