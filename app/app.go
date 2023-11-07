@@ -273,7 +273,6 @@ type App struct {
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper         capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper    capabilitykeeper.ScopedKeeper
-	ScopedICAHostKeeper     capabilitykeeper.ScopedKeeper
 	ScopedIBCConsumerKeeper capabilitykeeper.ScopedKeeper
 
 	// Evmos keepers
