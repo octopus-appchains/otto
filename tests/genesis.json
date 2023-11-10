@@ -36,58 +36,7 @@
         "sig_verify_cost_ed25519": "590",
         "sig_verify_cost_secp256k1": "1000"
       },
-      "accounts": [
-        {
-          "@type": "/ethermint.types.v1.EthAccount",
-          "base_account": {
-            "address": "otto1576kgvsanr69h73c49eqj4avxmtl52yft205xj",
-            "pub_key": null,
-            "account_number": "0",
-            "sequence": "0"
-          },
-          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-        },
-        {
-          "@type": "/ethermint.types.v1.EthAccount",
-          "base_account": {
-            "address": "otto187y4hlcggms8kyjhjswqc76353cmuj5swu9ps8",
-            "pub_key": null,
-            "account_number": "1",
-            "sequence": "0"
-          },
-          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-        },
-        {
-          "@type": "/ethermint.types.v1.EthAccount",
-          "base_account": {
-            "address": "otto1wljr0qdeveanu8hxqsrna6g8l9l976hvzfmvs8",
-            "pub_key": null,
-            "account_number": "2",
-            "sequence": "0"
-          },
-          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-        },
-        {
-          "@type": "/ethermint.types.v1.EthAccount",
-          "base_account": {
-            "address": "otto1rtykusn4045fuy7eulhznccyhtz378j9kk9vs0",
-            "pub_key": null,
-            "account_number": "3",
-            "sequence": "0"
-          },
-          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-        },
-        {
-          "@type": "/ethermint.types.v1.EthAccount",
-          "base_account": {
-            "address": "otto12querd4h607jwacqetcl7f8yge607gm90kkcws",
-            "pub_key": null,
-            "account_number": "4",
-            "sequence": "0"
-          },
-          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-        }
-      ]
+      "accounts": []
     },
     "authz": {
       "authorization": []
@@ -97,82 +46,9 @@
         "send_enabled": [],
         "default_send_enabled": true
       },
-      "balances": [
-        {
-          "address": "otto1rtykusn4045fuy7eulhznccyhtz378j9kk9vs0",
-          "coins": [
-            {
-              "denom": "aotto",
-              "amount": "100000000000000000000000000"
-            }
-          ]
-        },
-        {
-          "address": "otto187y4hlcggms8kyjhjswqc76353cmuj5swu9ps8",
-          "coins": [
-            {
-              "denom": "aotto",
-              "amount": "100000000000000000000000000"
-            }
-          ]
-        },
-        {
-          "address": "otto12querd4h607jwacqetcl7f8yge607gm90kkcws",
-          "coins": [
-            {
-              "denom": "aotto",
-              "amount": "100000000000000000000000000"
-            }
-          ]
-        },
-        {
-          "address": "otto1wljr0qdeveanu8hxqsrna6g8l9l976hvzfmvs8",
-          "coins": [
-            {
-              "denom": "aotto",
-              "amount": "100000000000000000000000000"
-            }
-          ]
-        },
-        {
-          "address": "otto1576kgvsanr69h73c49eqj4avxmtl52yft205xj",
-          "coins": [
-            {
-              "denom": "aotto",
-              "amount": "100000000000000000000000000"
-            }
-          ]
-        }
-      ],
-      "supply": [
-        {
-          "denom": "aotto",
-          "amount": "500000000000000000000000000"
-        }
-      ],
-      "denom_metadata": [
-        {
-          "description": "The native EVM, governance and staking token of the Otto",
-          "denom_units": [
-            {
-              "denom": "aotto",
-              "exponent": 0,
-              "aliases": []
-            },
-            {
-              "denom": "otto",
-              "exponent": 18,
-              "aliases": []
-            }
-          ],
-          "base": "aotto",
-          "display": "otto",
-          "name": "Otto",
-          "symbol": "OTTO",
-          "uri": "",
-          "uri_hash": ""
-        }
-      ],
+      "balances": [],
+      "supply": [],
+      "denom_metadata": [],
       "send_enabled": []
     },
     "capability": {
@@ -220,24 +96,6 @@
         {
           "pub_key": {
             "ed25519": "2CKdA3Sbl1hh6+Exdqy7LfspfGcgUtNhV1VwUAZcy7c="
-          },
-          "power": "10000"
-        },
-        {
-          "pub_key": {
-            "ed25519": "s6mgS6YztAJ0V0GyV0Rc6g4E3Y/QLFI4wZ3c5LEDaks="
-          },
-          "power": "10000"
-        },
-        {
-          "pub_key": {
-            "ed25519": "xaTzPWfA7PS06PDJw/p6p/QWSBqYH71PeeUqlPSv0QM="
-          },
-          "power": "10000"
-        },
-        {
-          "pub_key": {
-            "ed25519": "2JOX9X/hXjMVN1KfOPxZzRruKKb45kZW1nICBXHaXBI="
           },
           "power": "10000"
         }
