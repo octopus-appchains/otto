@@ -5,7 +5,7 @@ CHAIN_BIN=ottod
 CHAINID=otto_9000-1
 # set denom
 DENOM="aotto"
-MONIKER=dev
+MONIKER=valiator
 HOME_DIR=~/.$MONIKER-node
 KEY=$MONIKER
 VALIDATOR_DIR=$(pwd)/tests/validatornode01
