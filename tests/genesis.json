@@ -1,6 +1,6 @@
 {
   "genesis_time": "2023-11-10T07:35:29.594507336Z",
-  "chain_id": "otto_9000-1",
+  "chain_id": "otto_9900-1",
   "initial_height": "1",
   "consensus_params": {
     "block": {
