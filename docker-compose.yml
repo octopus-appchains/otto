@@ -1,90 +1,10 @@
 version: '3'
 
 services:
-  validator01:
-    container_name: validator01
-    image: "octopus-appchains/otto"
-    ports:
-      - "26616-26617:26656-26657"
-    volumes:
-      - ./build/validatornode01:/data:Z
-    command:
-      - ottod start --home /data
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.2
-
-  validator02:
-    container_name: validator02
-    image: "octopus-appchains/otto"
-    ports:
-      - "26626-26627:26656-26657"
-    volumes:
-      - ./build/validatornode02:/data:Z
-    command:
-      - ottod start --home /data
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.3
-
-  validator03:
-    container_name: validator03
-    image: "octopus-appchains/otto"
-    ports:
-      - "26636-26637:26656-26657"
-    volumes:
-      - ./build/validatornode03:/data:Z
-    command:
-      - ottod start --home /data 
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.4
-
-  validator04:
-    container_name: validator04
-    image: "octopus-appchains/otto"
-    ports:
-      - "26646-26647:26656-26657"
-    volumes:
-      - ./build/validatornode04:/data:Z
-    command:
-      - ottod start --home /data
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.5
-    
-  fullnode01:
-    container_name: fullnode01
+  cosmovisor:
+    container_name: cosmovisor
     image: "octopus-appchains/otto"
     ports:
       - "26656-26657:26656-26657"
-      - "8545-8546:8545-8546"
-    volumes:
-      - ./build/fullnode01:/data:Z
     command:
-      - ottod start --home /data --json-rpc.address="0.0.0.0:8545" --json-rpc.ws-address="0.0.0.0:8546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.6
-
-  fullnode02:
-    container_name: fullnode02
-    image: "octopus-appchains/otto"
-    ports:
-      - "26666-26667:26656-26657"
-    volumes:
-      - ./build/fullnode02:/data:Z
-    command:
-      - ottod start --home /data --json-rpc.address="0.0.0.0:8545" --json-rpc.ws-address="0.0.0.0:8546" --json-rpc.api eth,txpool,personal,net,debug,web3 --api.enable --json-rpc.enable true
-    networks:
-      localnet:
-        ipv4_address: 192.167.10.7
-
-networks:
-  localnet:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        -
-          subnet: 192.167.10.0/16
+      - /bin/bash -c "/root/init_and_start.sh ottod cosmovisor otto_9900-1 29aa7bef50c930284202c89cfb9f4452e160bebb@35.234.3.39:26656,f33dfacf06344222bbd92b377de5d17e0c37ee02@104.199.233.115:26656 https://raw.githubusercontent.com/octopus-appchains/otto/feat/otto-upgrade-ccv/tests/genesis.json"
