@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-11-10T07:35:29.594507336Z",
-  "chain_id": "otto_9900-1",
+  "genesis_time": "2023-11-20T06:40:00.000000000Z",
+  "chain_id": "otto_9107-1",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -36,7 +36,18 @@
         "sig_verify_cost_ed25519": "590",
         "sig_verify_cost_secp256k1": "1000"
       },
-      "accounts": []
+      "accounts": [
+        {
+          "@type": "/ethermint.types.v1.EthAccount",
+          "base_account": {
+            "address": "otto1krh6llwr6qvlsfal4jpukxlw06ls6lxe5hqfya",
+            "pub_key": null,
+            "account_number": "0",
+            "sequence": "0"
+          },
+          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+        }
+      ]
     },
     "authz": {
       "authorization": []
@@ -46,7 +57,12 @@
         "send_enabled": [],
         "default_send_enabled": true
       },
-      "balances": [],
+      "balances": [
+        {
+          "address": "otto1krh6llwr6qvlsfal4jpukxlw06ls6lxe5hqfya",
+          "coins": []
+        }
+      ],
       "supply": [],
       "denom_metadata": [],
       "send_enabled": []
@@ -58,14 +74,14 @@
     "ccvconsumer": {
       "params": {
         "enabled": true,
-        "blocks_per_distribution_transmission": "100",
+        "blocks_per_distribution_transmission": "20000",
         "distribution_transmission_channel": "",
         "provider_fee_pool_addr_str": "",
         "ccv_timeout_period": "2419200s",
         "transfer_timeout_period": "3600s",
         "consumer_redistribution_fraction": "0.75",
         "historical_entries": "10000",
-        "unbonding_period": "1814400s",
+        "unbonding_period": "432000s",
         "soft_opt_out_threshold": "0.05"
       },
       "provider_client_id": "",
@@ -75,29 +91,29 @@
         "sequence": "1",
         "is_frozen": false,
         "consensus_state": {
-          "public_key": {
-            "@type": "/cosmos.crypto.secp256k1.PubKey",
-            "key": "A1iVSz1qIIHpI1YzMBPV3YwT3H2TV7hIgImkivPpJXC/"
-          },
-          "diversifier": "oct",
-          "timestamp": "1698041666697730211"
+            "public_key": {
+                "@type": "/cosmos.crypto.secp256k1.PubKey",
+                "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
+            },
+            "diversifier": "oct",
+            "timestamp": "1700491617057420588"
         }
       },
       "provider_consensus_state": {
-        "public_key": {
-          "@type": "/cosmos.crypto.secp256k1.PubKey",
-          "key": "A1iVSz1qIIHpI1YzMBPV3YwT3H2TV7hIgImkivPpJXC/"
-        },
-        "diversifier": "oct",
-        "timestamp": "1698041666697730211"
+          "public_key": {
+              "@type": "/cosmos.crypto.secp256k1.PubKey",
+              "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
+          },
+          "diversifier": "oct",
+          "timestamp": "1700491617057420588"
       },
       "maturing_packets": [],
       "initial_val_set": [
         {
           "pub_key": {
-            "ed25519": "2CKdA3Sbl1hh6+Exdqy7LfspfGcgUtNhV1VwUAZcy7c="
+            "ed25519": "hg6kh7pT227ydxep8ca7YZn/pFOBX+5exfNINduAMkQ="
           },
-          "power": "10000"
+          "power": "2"
         }
       ],
       "height_to_valset_update_id": [],
@@ -113,7 +129,7 @@
     "consensus": null,
     "crisis": {
       "constant_fee": {
-        "denom": "aotto",
+        "denom": "stake",
         "amount": "1000"
       }
     },
@@ -149,7 +165,7 @@
     "evm": {
       "accounts": [],
       "params": {
-        "evm_denom": "ibc/C053D637CCA2A2BA030E2C5EE1B28A16F71CCB0E45E8BE52766DC1B241B77878",
+        "evm_denom": "ibc/86EDA6ABA44A1A5DF3B5A032592F8C0CCA2F8D25240664A440E647E5F46A9AD8",
         "enable_create": true,
         "enable_call": true,
         "extra_eips": [],
@@ -188,7 +204,7 @@
     },
     "feemarket": {
       "params": {
-        "no_base_fee": true,
+        "no_base_fee": false,
         "base_fee_change_denominator": 8,
         "elasticity_multiplier": 2,
         "enable_height": "0",
@@ -212,7 +228,7 @@
       "params": {
         "min_deposit": [
           {
-            "denom": "aotto",
+            "denom": "stake",
             "amount": "10000000"
           }
         ],
@@ -287,7 +303,7 @@
         "max_validators": 100,
         "max_entries": 7,
         "historical_entries": 10000,
-        "bond_denom": "aotto",
+        "bond_denom": "stake",
         "min_commission_rate": "0.050000000000000000"
       },
       "last_total_power": "0",
