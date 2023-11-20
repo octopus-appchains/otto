@@ -96,7 +96,7 @@ func newCosmosAnteHandler(options appante.HandlerOptions, consumerKeeper ibccons
 		),
 		authante.NewSetUpContextDecorator(),
 		authante.NewExtensionOptionsDecorator(options.ExtensionOptionChecker),
-		// consumerante.NewMsgFilterDecorator(consumerKeeper),
+		consumerante.NewMsgFilterDecorator(consumerKeeper),
 		consumerante.NewDisabledModulesDecorator("/cosmos.evidence", "/cosmos.slashing"),
 		democracyante.NewForbiddenProposalsDecorator(IsProposalWhitelisted, IsModuleWhiteList),
 		authante.NewValidateBasicDecorator(),

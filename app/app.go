@@ -352,6 +352,7 @@ func New(
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
 		erc20types.StoreKey, vestingtypes.StoreKey,
 		revenuetypes.StoreKey, claimstypes.StoreKey,
+
 		adminmodulemoduletypes.StoreKey,
 	)
 
