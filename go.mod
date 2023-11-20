@@ -211,11 +211,11 @@ replace (
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 	// use interchain security to integrate with ccv module
-	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20231023063746-affd9bce1123
+	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20231115071452-50c629720ce3
 	// use Evmos geth fork
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// use Evmos fork to remove the limit of chainID
-	github.com/evmos/evmos/v14 => github.com/octopus-network/evmos/v14 v14.0.3-otto
+	github.com/evmos/evmos/v14 => github.com/octopus-network/evmos/v14 v14.0.5-otto
 	// Security Advisory https://github.com/advisories/GHSA-h395-qcrw-5vmq
 	github.com/gin-gonic/gin => github.com/gin-gonic/gin v1.9.1
 	// replace broken goleveldb
