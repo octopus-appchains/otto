@@ -72,7 +72,6 @@ import (
 	govv1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 	"github.com/cosmos/cosmos-sdk/x/params"
-	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
 	paramskeeper "github.com/cosmos/cosmos-sdk/x/params/keeper"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	paramproposal "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
@@ -82,7 +81,6 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/cosmos/cosmos-sdk/x/upgrade"
-	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
@@ -90,7 +88,6 @@ import (
 	ibctransfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	ibc "github.com/cosmos/ibc-go/v7/modules/core"
 	ibcclient "github.com/cosmos/ibc-go/v7/modules/core/02-client"
-	ibcclientclient "github.com/cosmos/ibc-go/v7/modules/core/02-client/client"
 	ibcclienttypes "github.com/cosmos/ibc-go/v7/modules/core/02-client/types"
 	ibcporttypes "github.com/cosmos/ibc-go/v7/modules/core/05-port/types"
 	porttypes "github.com/cosmos/ibc-go/v7/modules/core/05-port/types"
@@ -123,7 +120,6 @@ import (
 	revenuekeeper "github.com/evmos/evmos/v14/x/revenue/v1/keeper"
 	revenuetypes "github.com/evmos/evmos/v14/x/revenue/v1/types"
 	"github.com/evmos/evmos/v14/x/vesting"
-	vestingclient "github.com/evmos/evmos/v14/x/vesting/client"
 	vestingkeeper "github.com/evmos/evmos/v14/x/vesting/keeper"
 	vestingtypes "github.com/evmos/evmos/v14/x/vesting/types"
 
@@ -177,13 +173,7 @@ var (
 		ccvstaking.AppModuleBasic{},
 		ccvdistr.AppModuleBasic{},
 		gov.NewAppModuleBasic(
-			[]govclient.ProposalHandler{
-				paramsclient.ProposalHandler, upgradeclient.LegacyProposalHandler, upgradeclient.LegacyCancelProposalHandler,
-				ibcclientclient.UpdateClientProposalHandler, ibcclientclient.UpgradeProposalHandler,
-				// Evmos proposal types
-				erc20client.RegisterCoinProposalHandler, erc20client.RegisterERC20ProposalHandler, erc20client.ToggleTokenConversionProposalHandler,
-				vestingclient.RegisterClawbackProposalHandler,
-			},
+			[]govclient.ProposalHandler{},
 		),
 		params.AppModuleBasic{},
 		crisis.AppModuleBasic{},
@@ -209,6 +199,9 @@ var (
 			adminmoduleclient.CancelUpgradeProposalHandler,
 			adminmoduleclient.IBCClientUpdateProposalHandler,
 			adminmoduleclient.IBCClientUpgradeProposalHandler,
+			erc20client.RegisterCoinProposalHandler,
+			erc20client.RegisterERC20ProposalHandler,
+			erc20client.ToggleTokenConversionProposalHandler,
 		),
 	)
 
