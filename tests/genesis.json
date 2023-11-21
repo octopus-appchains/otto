@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2023-11-20T06:40:00.000000000Z",
+  "genesis_time": "2023-11-21T07:55:00.000000000Z",
   "chain_id": "otto_9107-1",
   "initial_height": "1",
   "consensus_params": {
@@ -74,7 +74,7 @@
     "ccvconsumer": {
       "params": {
         "enabled": true,
-        "blocks_per_distribution_transmission": "20000",
+        "blocks_per_distribution_transmission": "10000",
         "distribution_transmission_channel": "",
         "provider_fee_pool_addr_str": "",
         "ccv_timeout_period": "2419200s",
@@ -129,7 +129,7 @@
     "consensus": null,
     "crisis": {
       "constant_fee": {
-        "denom": "stake",
+        "denom": "ibc/86EDA6ABA44A1A5DF3B5A032592F8C0CCA2F8D25240664A440E647E5F46A9AD8",
         "amount": "1000"
       }
     },
@@ -228,7 +228,7 @@
       "params": {
         "min_deposit": [
           {
-            "denom": "stake",
+            "denom": "ibc/86EDA6ABA44A1A5DF3B5A032592F8C0CCA2F8D25240664A440E647E5F46A9AD8",
             "amount": "10000000"
           }
         ],
@@ -303,7 +303,7 @@
         "max_validators": 100,
         "max_entries": 7,
         "historical_entries": 10000,
-        "bond_denom": "stake",
+        "bond_denom": "ibc/86EDA6ABA44A1A5DF3B5A032592F8C0CCA2F8D25240664A440E647E5F46A9AD8",
         "min_commission_rate": "0.050000000000000000"
       },
       "last_total_power": "0",
