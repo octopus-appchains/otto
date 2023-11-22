@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2023-11-21T07:55:00.000000000Z",
+  "genesis_time": "2023-11-22T07:45:00.000000000Z",
   "chain_id": "otto_9107-1",
   "initial_height": "1",
   "consensus_params": {
@@ -96,7 +96,7 @@
                 "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
             },
             "diversifier": "oct",
-            "timestamp": "1700491617057420588"
+            "timestamp": "1700626684341847527"
         }
       },
       "provider_consensus_state": {
@@ -105,7 +105,7 @@
               "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
           },
           "diversifier": "oct",
-          "timestamp": "1700491617057420588"
+          "timestamp": "1700626684341847527"
       },
       "maturing_packets": [],
       "initial_val_set": [
