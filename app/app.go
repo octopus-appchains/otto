@@ -10,7 +10,6 @@ import (
 
 	ccvstaking "github.com/cosmos/interchain-security/v3/x/ccv/democracy/staking"
 	"github.com/evmos/evmos/v14/x/erc20"
-	erc20client "github.com/evmos/evmos/v14/x/erc20/client"
 
 	"github.com/spf13/cast"
 
@@ -199,9 +198,9 @@ var (
 			adminmoduleclient.CancelUpgradeProposalHandler,
 			adminmoduleclient.IBCClientUpdateProposalHandler,
 			adminmoduleclient.IBCClientUpgradeProposalHandler,
-			erc20client.RegisterCoinProposalHandler,
-			erc20client.RegisterERC20ProposalHandler,
-			erc20client.ToggleTokenConversionProposalHandler,
+			govclient.NewProposalHandler(NewRegisterCoinProposalCmd),
+			govclient.NewProposalHandler(NewRegisterERC20ProposalCmd),
+			govclient.NewProposalHandler(NewToggleTokenConversionProposalCmd),
 		),
 	)
 
@@ -530,7 +529,8 @@ func New(
 	adminRouter.AddRoute(govtypes.RouterKey, govv1beta1.ProposalHandler).
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(&app.UpgradeKeeper)).
-		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper))
+		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).
+		AddRoute(erc20types.RouterKey, erc20.NewErc20ProposalHandler(&app.Erc20Keeper))
 
 	app.AdminmoduleKeeper = *adminmodulemodulekeeper.NewKeeper(
 		appCodec,
