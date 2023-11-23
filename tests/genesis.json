@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-11-22T07:45:00.000000000Z",
-  "chain_id": "otto_9107-1",
+  "genesis_time": "2023-11-23T16:15:00.000000000Z",
+  "chain_id": "otto_9108-1",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -96,7 +96,7 @@
                 "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
             },
             "diversifier": "oct",
-            "timestamp": "1700626684341847527"
+            "timestamp": "1700733660647687741"
         }
       },
       "provider_consensus_state": {
@@ -105,7 +105,7 @@
               "key": "An/FQdTV7zFlPx2jR9D4AXCuQEbrtdFvT5pM1PBJbdVE"
           },
           "diversifier": "oct",
-          "timestamp": "1700626684341847527"
+          "timestamp": "1700733660647687741"
       },
       "maturing_packets": [],
       "initial_val_set": [
@@ -113,7 +113,7 @@
           "pub_key": {
             "ed25519": "hg6kh7pT227ydxep8ca7YZn/pFOBX+5exfNINduAMkQ="
           },
-          "power": "2"
+          "power": "15"
         }
       ],
       "height_to_valset_update_id": [],
