@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-11-23T16:15:00.000000000Z",
-  "chain_id": "otto_9108-1",
+  "genesis_time": "2023-11-25T17:00:00.000000000Z",
+  "chain_id": "otto_9109-1",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -26,7 +26,7 @@
     "06-solomachine": null,
     "07-tendermint": null,
     "adminmodule": {
-      "admins": []
+      "admins": ["otto17szvy4709ay29jap9pm9kda28dqsmhax5vt2uv"]
     },
     "auth": {
       "params": {
@@ -46,6 +46,16 @@
             "sequence": "0"
           },
           "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+        },
+        {
+          "@type": "/ethermint.types.v1.EthAccount",
+          "base_account": {
+            "address": "otto17szvy4709ay29jap9pm9kda28dqsmhax5vt2uv",
+            "pub_key": null,
+            "account_number": "1",
+            "sequence": "0"
+          },
+          "code_hash": "0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
         }
       ]
     },
@@ -60,6 +70,10 @@
       "balances": [
         {
           "address": "otto1krh6llwr6qvlsfal4jpukxlw06ls6lxe5hqfya",
+          "coins": []
+        },
+        {
+          "address": "otto17szvy4709ay29jap9pm9kda28dqsmhax5vt2uv",
           "coins": []
         }
       ],
@@ -113,7 +127,7 @@
           "pub_key": {
             "ed25519": "hg6kh7pT227ydxep8ca7YZn/pFOBX+5exfNINduAMkQ="
           },
-          "power": "15"
+          "power": "18"
         }
       ],
       "height_to_valset_update_id": [],
