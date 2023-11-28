@@ -7,7 +7,6 @@ import (
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
 	sdkvesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
 	ibcante "github.com/cosmos/ibc-go/v7/modules/core/ante"
-	democracyante "github.com/cosmos/interchain-security/v3/app/consumer-democracy/ante"
 	consumerante "github.com/cosmos/interchain-security/v3/app/consumer/ante"
 	ibcconsumerkeeper "github.com/cosmos/interchain-security/v3/x/ccv/consumer/keeper"
 	appante "github.com/evmos/evmos/v14/app/ante"
@@ -98,7 +97,6 @@ func newCosmosAnteHandler(options appante.HandlerOptions, consumerKeeper ibccons
 		authante.NewExtensionOptionsDecorator(options.ExtensionOptionChecker),
 		consumerante.NewMsgFilterDecorator(consumerKeeper),
 		consumerante.NewDisabledModulesDecorator("/cosmos.evidence", "/cosmos.slashing"),
-		democracyante.NewForbiddenProposalsDecorator(IsProposalWhitelisted, IsModuleWhiteList),
 		authante.NewValidateBasicDecorator(),
 		authante.NewTxTimeoutHeightDecorator(),
 		authante.NewValidateMemoDecorator(options.AccountKeeper),
@@ -127,7 +125,6 @@ func newLegacyCosmosAnteHandlerEip712(options appante.HandlerOptions, consumerKe
 		authante.NewSetUpContextDecorator(),
 		consumerante.NewMsgFilterDecorator(consumerKeeper),
 		consumerante.NewDisabledModulesDecorator("/cosmos.evidence", "/cosmos.slashing"),
-		democracyante.NewForbiddenProposalsDecorator(IsProposalWhitelisted, IsModuleWhiteList),
 		authante.NewValidateBasicDecorator(),
 		authante.NewTxTimeoutHeightDecorator(),
 		cosmosante.NewMinGasPriceDecorator(options.FeeMarketKeeper, options.EvmKeeper),
