@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2023-12-07T17:28:00.00000000Z",
-  "chain_id": "otto_9111-1",
+  "genesis_time": "2023-12-08T17:42:00.00000000Z",
+  "chain_id": "otto_9112-1",
   "initial_height": "1",
   "consensus_params": {
     "block": {
@@ -88,7 +88,7 @@
     "ccvconsumer": {
       "params": {
         "enabled": true,
-        "blocks_per_distribution_transmission": "10000",
+        "blocks_per_distribution_transmission": "1000",
         "distribution_transmission_channel": "",
         "provider_fee_pool_addr_str": "",
         "ccv_timeout_period": "2419200s",
@@ -110,7 +110,7 @@
                 "key": "A/4UMEQh5H3wT5P1YtCetLc6CurHiAIylWLXH/dQLHlD"
             },
             "diversifier": "oct",
-            "timestamp": "1701968342329705560"
+            "timestamp": "1702047864385524414"
         }
       },
       "provider_consensus_state": {
@@ -119,7 +119,7 @@
               "key": "A/4UMEQh5H3wT5P1YtCetLc6CurHiAIylWLXH/dQLHlD"
           },
           "diversifier": "oct",
-          "timestamp": "1701968342329705560"
+          "timestamp": "1702047864385524414"
       },
       "maturing_packets": [],
       "initial_val_set": [
