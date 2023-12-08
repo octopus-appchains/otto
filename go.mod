@@ -211,7 +211,7 @@ replace (
 	// use Cosmos-SDK fork to enable Ledger functionality
 	github.com/cosmos/cosmos-sdk => github.com/evmos/cosmos-sdk v0.47.4-evmos.2
 
-	github.com/cosmos/ibc-go/v7 => github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug
+	github.com/cosmos/ibc-go/v7 => github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug1
 	// use interchain security to integrate with ccv module
 	github.com/cosmos/interchain-security/v3 => github.com/octopus-network/interchain-security/v3 v3.0.0-20231115071452-50c629720ce3
 	// use Evmos geth fork

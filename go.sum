@@ -889,8 +889,8 @@ github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed h1:DM
 github.com/octopus-network/admin-module v0.0.0-20231101123311-3b1050b110ed/go.mod h1:m1FBRxM9VFKCTC/dkUsZNSGMkXQEUWNYejBbdWlTs60=
 github.com/octopus-network/evmos/v14 v14.0.5-otto h1:Fgzaf3/qIL0aWpIKx2tNB8cLvjpvHsRTUmhwyS3gq2s=
 github.com/octopus-network/evmos/v14 v14.0.5-otto/go.mod h1:BvLt7VaMqFvtO2uFd2Jq+LaBDK658Tala1PREh7fxfk=
-github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug h1:FokW7r0/H1Yjvy9tvHzeEQKZl4g7wb3zpp64cxyYFmw=
-github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug/go.mod h1:mUmaHFXpXrEdcxfdXyau+utZf14pGKVUiXwYftRZZfQ=
+github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug1 h1:Uyy0KXLNtE1JYZGvUxg97j8dGLJiXtJ3aMQMy++dv8U=
+github.com/octopus-network/ibc-go/v7 v7.3.0-julian-debug1/go.mod h1:mUmaHFXpXrEdcxfdXyau+utZf14pGKVUiXwYftRZZfQ=
 github.com/octopus-network/interchain-security/v3 v3.0.0-20231115071452-50c629720ce3 h1:b4HH1Kq4sHGQdZULGdYu/z4WMY/EVI1cVs/8aH4S7WU=
 github.com/octopus-network/interchain-security/v3 v3.0.0-20231115071452-50c629720ce3/go.mod h1:Nq4i4iPx1TJqzp4FoLYHPN2mLRtSB/VZubdW99WxLF8=
 github.com/oklog/oklog v0.3.2/go.mod h1:FCV+B7mhrz4o+ueLpx+KqkyXRGMWOYEvfiXtdGtbWGs=
