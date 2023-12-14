@@ -8,7 +8,7 @@ CHAINID=$3
 PEERS=$4
 GENESIS_FILE=$5
 DATA_DIR=/data
-IBC_DENOM=`jq '.app_state.crisis.constant_fee.denom' $GENESIS_FILE`
+IBC_TOKEN_DENOM=`jq '.app_state.crisis.constant_fee.denom' $GENESIS_FILE`
 
 if [ ! -f "$DATA_DIR/config/config.toml" ]; then
 	# Initialize node's configuration files.
