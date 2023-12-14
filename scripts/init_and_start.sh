@@ -20,7 +20,7 @@ if [ ! -f "$DATA_DIR/config/config.toml" ]; then
 	curl -L -o $DATA_DIR/config/genesis.json $GENESIS_FILE
 
 	# Get the IBC_TOKEN_DENOM from genesis.json
-	IBC_TOKEN_DENOM=`jq '.app_state.crisis.constant_fee.denom' $DATA_DIR/config/genesis.json`
+	IBC_TOKEN_DENOM=`jq -r '.app_state.crisis.constant_fee.denom' $DATA_DIR/config/genesis.json`
 
 	# Modify the minimum-gas-price field of app.toml
 	sed -i.bak "s#minimum-gas-prices = \"0aotto\"#minimum-gas-prices = \"20000000000${IBC_TOKEN_DENOM}\"#" $DATA_DIR/config/app.toml
