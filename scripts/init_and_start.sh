@@ -8,6 +8,7 @@ CHAINID=$3
 PEERS=$4
 GENESIS_FILE=$5
 DATA_DIR=/data
+IBC_DENOM=`jq '.app_state.crisis.constant_fee.denom' $GENESIS_FILE`
 
 if [ ! -f "$DATA_DIR/config/config.toml" ]; then
 	# Initialize node's configuration files.
@@ -15,6 +16,9 @@ if [ ! -f "$DATA_DIR/config/config.toml" ]; then
 
 	# Modify the persistent_peers field of config.toml
 	sed -i.bak "s/persistent_peers = \"\"/persistent_peers = \"${PEERS}\"/" $DATA_DIR/config/config.toml
+
+    # Modify the minimum-gas-price field of app.toml
+    sed -i.bak "s#minimum-gas-prices = \"0aotto\"#minimum-gas-prices = \"20000000000${IBC_TOKEN_DENOM}\"#" $DATA_DIR/config/app.toml
 
 	# Download genesis file
 	curl -L -o $DATA_DIR/config/genesis.json $GENESIS_FILE
