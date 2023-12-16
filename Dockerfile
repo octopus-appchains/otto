@@ -9,7 +9,7 @@ RUN apt-get update \
 WORKDIR /root
 
 # Download and compile the ottod binaries
-RUN git clone --depth 1 -b feat/otto-upgrade-ccv https://github.com/octopus-appchains/otto.git otto-v1 \
+RUN git clone --depth 1 -b main https://github.com/ottochain/otto.git otto-v1 \
     && cd otto-v1 \
     && make build
 
